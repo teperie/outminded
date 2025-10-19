@@ -1,0 +1,134 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+
+  html, body {
+    height: 100%;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+      'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+      sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    overflow: hidden;
+  }
+
+  #root {
+    height: 100%;
+  }
+}
+
+@layer components {
+  .gradient-bg {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  }
+
+  .glass-morphism {
+    background: rgba(0, 0, 0, 0.1);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+  }
+
+  .text-glow {
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+  }
+
+  .text-shadow-soft {
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
+  }
+}
+
+@layer utilities {
+  .text-responsive {
+    font-size: clamp(1rem, 2.5vw, 1.5rem);
+  }
+
+  .title-responsive {
+    font-size: clamp(2rem, 5vw, 4rem);
+  }
+}
+
+/* 앱 컨테이너 */
+.app {
+  @apply h-screen w-screen relative overflow-hidden gradient-bg;
+}
+
+/* 메인 콘텐츠 */
+.main-content {
+  @apply relative h-full w-full flex flex-col justify-center items-center;
+}
+
+/* 캔버스 컨테이너 */
+.canvas-container {
+  @apply absolute top-0 left-0 w-full h-full z-10;
+}
+
+.background-canvas {
+  @apply w-full h-full block;
+}
+
+/* 오버레이 콘텐츠 */
+.overlay-content {
+  @apply relative z-20 text-center text-white p-8 max-w-[90vw] rounded-[20px] glass-morphism;
+}
+
+.app-title {
+  @apply title-responsive font-light mb-4 tracking-wide text-glow;
+}
+
+.app-description {
+  @apply text-responsive font-light leading-relaxed opacity-90 text-shadow-soft;
+}
+
+/* 접근성 관련 스타일 */
+.instructions {
+  @apply mt-6 p-4 rounded-lg glass-morphism;
+}
+
+.accessibility-note {
+  @apply text-sm italic text-white/80 m-0;
+}
+
+/* 포커스 개선 */
+.app-title:focus {
+  @apply outline-3 outline-white/80 outline-offset-2 rounded;
+}
+
+.overlay-content:focus-within .app-title {
+  text-shadow: 0 2px 8px rgba(255, 255, 255, 0.5);
+}
+
+/* 스크린 리더 사용자용 숨김 텍스트 */
+.sr-only {
+  @apply absolute w-px h-px p-0 -m-px overflow-hidden clip-[rect(0,0,0,0)] whitespace-nowrap border-0;
+}
+
+/* 접근성 개선 */
+@media (prefers-reduced-motion: reduce) {
+  .background-canvas {
+    animation: none !important;
+  }
+}
+
+/* 포커스 스타일 */
+.overlay-content:focus-within {
+  @apply outline-2 outline-white/50 outline-offset-2;
+}
+
+/* 반응형 디자인 */
+@media (max-width: 768px) {
+  .overlay-content {
+    @apply p-6 m-4;
+  }
+
+  .app-title {
+    @apply mb-3;
+  }
+}
